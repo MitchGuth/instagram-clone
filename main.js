@@ -13,56 +13,68 @@ var images = [
     {caption:'Circle of Life', url:"img/cups-circle.jpg"}
 ];
 var feed = document.querySelector('.feed');
-// var postContainer = document.querySelector('.post-container');
+var bigImage = document.querySelector('.lightBoxImage');
+var currentI;
 
 for (var index = 0; index < images.length; index++) {
+    (function(){
     var image = images[index];
-    
     var newImage = document.createElement('img');
+    var caption = document.createElement('p');
+    var postContainer = document.createElement('li');
+    var indexNum = index;
+
     newImage.setAttribute('src', image.url);
     newImage.classList.add("feed-pic");
-
-    var caption = document.createElement('p');
     caption.textContent = image.caption;
     caption.classList.add("feed-caption");
-
-    var postContainer = document.createElement('li');
     postContainer.classList.add("postContents");
-
     postContainer.appendChild(newImage);
     postContainer.appendChild(caption);
-
     feed.appendChild(postContainer);
-    // This needs cleaned up still, as the list bullets are still showing in the code. 
-    // Need to add click listener to let the program know what was clicked. 
-    // Also need to add to the functionality a light box to highlight a clicked image by the user. 
-    
+
+    var handleClick = document.querySelectorAll(".postContents");
+
+    handleClick = function() {
+        currentI = indexNum;
+        event.preventDefault();
+        // console.log(event.target);
+        // console.log('Click Registered');
+        var selectedImage = event.target.getAttribute('src');
+        // console.log(selectedImage);
+        bigImage.setAttribute('src', selectedImage);
+        var lightBox = document.querySelector(".lightBox");
+        lightBox.classList.remove("hidden");
+    };
+    postContainer.addEventListener('click', handleClick);
+})();
 }
 
 // add left and right buttons inside of light box inside a for loop assigning an index number to each image so you can
 // move from left to right inside of the light box 
-
-var clickTest = document.querySelectorAll(".postContents");
 var lightButton = document.querySelector(".lightButton");
 
-lightButton.addEventListener('click', function(event){
+lightButton.addEventListener('click', function(){
     var lightBox = document.querySelector(".lightBox");
     lightBox.classList.add("hidden");
 });
 
-clickTest.forEach(function (element) {
-    element.addEventListener('click', function(event) {
-        event.preventDefault();
-        console.log(event.target);
-        console.log('Click Registered');
 
-        var selectedImage = event.target.getAttribute('src');
-        console.log(selectedImage);
-        var lightBoxImage = document.querySelector(".lightBoxImage");
-        lightBoxImage.setAttribute('src', selectedImage);
-        var lightBox = document.querySelector(".lightBox");
-        lightBox.classList.remove("hidden");
-
-    });
+var handleClickLeft = function(){
+    event.preventDefault();
+    currentI = (currentI + images.length -1) % images.length;
+    bigImage.setAttribute('src', images[currentI].url);
     
-});
+};
+var handleClickRight = function(){
+    event.preventDefault();
+    currentI = (currentI + 1) % images.length;
+    bigImage.setAttribute('src', images[currentI].url);
+    
+};
+
+var leftButton = document.querySelector('.leftButton');
+var rightButton = document.querySelector('.rightButton');
+leftButton.addEventListener('click', handleClickLeft);
+rightButton.addEventListener('click', handleClickRight);
+

@@ -48,8 +48,8 @@ html{
     padding: 1em;
 }
 .profile-pic{
-    max-height: 80px;
-    max-width: 80px;
+    max-height: 150px;
+    max-width: 150px;
 }
 .profile-info{
     display: flex;
@@ -89,11 +89,11 @@ html{
     visibility: hidden;
 }
 .lightBox{
-    height: 100%;
-    width: 100%;
     position: absolute;
     top: 0; 
     left: 0;
+    height: 100%;
+    width: 100%;
     display: flex;
     overflow-y: auto;
     justify-content: center;
@@ -104,8 +104,34 @@ html{
     position: absolute;
     top: 20px; 
     right: 20px;
+    background-color: rgba(100, 98, 98, 0.100);
+    color: white;
+    border: none;
+}
+.leftButton{
+    height: 50px;
+    width: 50px;
+    border: none;
+    background-color: rgba(100, 98, 98, 0.692);
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 1%;
+}
+.rightButton{
+    position: absolute;
+    top: 50%;
+    right: 1%;
+    height: 50px;
+    width: 50px;
+    border: none;
+    background-color: rgba(100, 98, 98, 0.692);
+    color: white;
+    font-weight: bold;
 }
 .lightBoxImage{
     max-height: 90%;
     max-width: 90%;
 }
+
