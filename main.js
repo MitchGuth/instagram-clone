@@ -16,13 +16,11 @@ var feed = document.querySelector('.feed');
 var bigImage = document.querySelector('.lightBoxImage');
 var currentI;
 
-for (var index = 0; index < images.length; index++) {
-    (function(){
-    var image = images[index];
+images.forEach(function(image, i){
     var newImage = document.createElement('img');
     var caption = document.createElement('p');
     var postContainer = document.createElement('li');
-    var indexNum = index;
+    var handleClick = document.querySelectorAll(".postContents");
 
     newImage.setAttribute('src', image.url);
     newImage.classList.add("feed-pic");
@@ -33,25 +31,18 @@ for (var index = 0; index < images.length; index++) {
     postContainer.appendChild(caption);
     feed.appendChild(postContainer);
 
-    var handleClick = document.querySelectorAll(".postContents");
-
     handleClick = function() {
-        currentI = indexNum;
+        currentI = i;
         event.preventDefault();
-        // console.log(event.target);
-        // console.log('Click Registered');
         var selectedImage = event.target.getAttribute('src');
-        // console.log(selectedImage);
         bigImage.setAttribute('src', selectedImage);
         var lightBox = document.querySelector(".lightBox");
         lightBox.classList.remove("hidden");
     };
     postContainer.addEventListener('click', handleClick);
-})();
-}
+    }
+); 
 
-// add left and right buttons inside of light box inside a for loop assigning an index number to each image so you can
-// move from left to right inside of the light box 
 var lightButton = document.querySelector(".lightButton");
 
 lightButton.addEventListener('click', function(){
@@ -59,18 +50,16 @@ lightButton.addEventListener('click', function(){
     lightBox.classList.add("hidden");
 });
 
-
 var handleClickLeft = function(){
     event.preventDefault();
     currentI = (currentI + images.length -1) % images.length;
-    bigImage.setAttribute('src', images[currentI].url);
-    
+    bigImage.setAttribute('src', images[currentI].url);    
 };
+
 var handleClickRight = function(){
     event.preventDefault();
     currentI = (currentI + 1) % images.length;
-    bigImage.setAttribute('src', images[currentI].url);
-    
+    bigImage.setAttribute('src', images[currentI].url);    
 };
 
 var leftButton = document.querySelector('.leftButton');

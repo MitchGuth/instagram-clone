@@ -1,6 +1,7 @@
 body, html{
     height: 100%;
     width: 100%;
+    margin: 0;
 }
 html{
     background-color: #E1B274;
@@ -89,16 +90,15 @@ html{
     visibility: hidden;
 }
 .lightBox{
-    position: absolute;
+    position: fixed;
     top: 0; 
     left: 0;
-    height: 100%;
-    width: 100%;
     display: flex;
-    overflow-y: auto;
     justify-content: center;
     align-items: center;
     background-color: rgba(100, 98, 98, 0.692);
+    height: 100%;
+    width: 100%;
 }
 .lightButton{
     position: absolute;
