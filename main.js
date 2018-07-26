@@ -12,58 +12,57 @@ var images = [
     {caption:'Sea of Beans', url:"img/sea-of-beans.jpg"},
     {caption:'Circle of Life', url:"img/cups-circle.jpg"}
 ];
-var feed = document.querySelector('.feed');
-var bigImage = document.querySelector('.lightBoxImage');
+var feed = $('.feed');
+var bigImage = $('.lightBoxImage');
 var currentI;
 
 images.forEach(function(image, i){
-    var newImage = document.createElement('img');
-    var caption = document.createElement('p');
-    var postContainer = document.createElement('li');
-    var handleClick = document.querySelectorAll(".postContents");
+    var newImage = $('<img>');
+    var caption = $('<p>');
+    var postContainer = $('<li>');
+    var handleClick = $(".postContainer");
 
-    newImage.setAttribute('src', image.url);
-    newImage.classList.add("feed-pic");
-    caption.textContent = image.caption;
-    caption.classList.add("feed-caption");
-    postContainer.classList.add("postContents");
-    postContainer.appendChild(newImage);
-    postContainer.appendChild(caption);
-    feed.appendChild(postContainer);
+    newImage.attr('src', image.url);
+    newImage.addClass("feed-pic");
+    caption.text(image.caption);
+    caption.addClass("feed-caption");
+    postContainer.addClass("postContents");
+    postContainer.append(newImage);
+    postContainer.append(caption);
+    feed.append(postContainer);
 
     handleClick = function() {
         currentI = i;
         event.preventDefault();
-        var selectedImage = event.target.getAttribute('src');
-        bigImage.setAttribute('src', selectedImage);
-        var lightBox = document.querySelector(".lightBox");
-        lightBox.classList.remove("hidden");
+        bigImage.attr('src', image.url);
+        var lightBox = $(".lightBox");
+        lightBox.removeClass("hidden");
     };
-    postContainer.addEventListener('click', handleClick);
+    postContainer.on('click', handleClick);
     }
 ); 
 
-var lightButton = document.querySelector(".lightButton");
+var lightButton = $(".lightButton");
 
-lightButton.addEventListener('click', function(){
-    var lightBox = document.querySelector(".lightBox");
-    lightBox.classList.add("hidden");
+lightButton.on('click', function(){
+    var lightBox = $(".lightBox");
+    lightBox.addClass("hidden");
 });
 
 var handleClickLeft = function(){
     event.preventDefault();
     currentI = (currentI + images.length -1) % images.length;
-    bigImage.setAttribute('src', images[currentI].url);    
+    bigImage.attr('src', images[currentI].url);    
 };
 
 var handleClickRight = function(){
     event.preventDefault();
     currentI = (currentI + 1) % images.length;
-    bigImage.setAttribute('src', images[currentI].url);    
+    bigImage.attr('src', images[currentI].url);    
 };
 
-var leftButton = document.querySelector('.leftButton');
-var rightButton = document.querySelector('.rightButton');
-leftButton.addEventListener('click', handleClickLeft);
-rightButton.addEventListener('click', handleClickRight);
+var leftButton = $('.leftButton');
+var rightButton = $('.rightButton');
+leftButton.on('click', handleClickLeft);
+rightButton.on('click', handleClickRight);
 
