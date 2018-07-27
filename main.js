@@ -49,6 +49,14 @@ lightButton.on('click', function(){
     lightBox.addClass("hidden");
 });
 
+var clickAnywhere = $(".lightBox");
+
+clickAnywhere.on('click', function(event){
+    if (event.target === clickAnywhere[0]){
+        clickAnywhere.addClass("hidden");
+    }
+});
+
 var handleClickLeft = function(){
     event.preventDefault();
     currentI = (currentI + images.length -1) % images.length;
